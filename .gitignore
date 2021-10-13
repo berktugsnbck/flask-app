@@ -1,0 +1,4 @@
+/.pytest_cache
+/.vscode
+/test-hello.py
+/__pycache__

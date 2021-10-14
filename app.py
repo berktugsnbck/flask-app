@@ -1,19 +1,25 @@
 from flask import Flask
+from flask_restful import Resource, Api
+import sys
+import json
+
 
 app = Flask(__name__)
+api = Api(app)
+port = 5000
 
-@app.route("/")
-def main():
-    return "Hello World!"
+if sys.argv.__len__() > 1:
+	port = sys.argv[1]
 
+class HelloWorld(Resource):
+	def get(self):
 
-def test_app():
-    web = app.app.test_client()
+		return json.dumps({"Message":"ok"})
+		
 
-    rv = web.get('/')
-    assert rv.status == '200 OK'
-    assert rv.data == b'Hello World!'
+api.add_resource(HelloWorld, '/fo')
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=5001)
-    app.run1(host='0.0.0.0',port=5001)
+	app.run(host="0.0.0.0")
+

@@ -1,0 +1,3 @@
+docker build --network=host -t flask-app .
+docker network create -d bridge mynet
+docker run --network=mynet -d -p 5001:5001 flask-app:latest

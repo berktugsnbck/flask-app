@@ -6,7 +6,6 @@ import json
 
 app = Flask(__name__)
 api = Api(app)
-port = 5000
 
 if sys.argv.__len__() > 1:
 	port = sys.argv[1]
@@ -21,5 +20,5 @@ api.add_resource(HelloWorld, '/fo')
 
 
 if __name__ == '__main__':
-	app.run(host="0.0.0.0")
+	app.run(host='0.0.0.0',port=5001)
 

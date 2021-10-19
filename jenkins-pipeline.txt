@@ -4,22 +4,43 @@ node {
     stage("Git Clone"){
     git credentialsId: 'GIT_HUB_CREDENTIALS',url:'https://github.com/berktugsnbck/flask-app.git'
     }
-       
-    stage("TEST Deployment"){
-        
-    def deployment = input(message:'Deploy to TEST ?',ok:'ok',parameters:[booleanParam(defaultValue:true,description:'',name:'Yes')])
-          
-    if(deployment == true){
-          
-    script {
-        env.DOCKER_BUILD_NUMBER=Jenkins.instance.getItem("buildjob").lastSuccessfulBuild.number
+
+    stage("Kubernetes DEV Deployment"){
+
+        script {
+            env.DOCKER_BUILD_NUMBER=Jenkins.instance.getItem("autobuild").lastSuccessfulBuild.number
+        }
+
+        sh 'envsubst < ./Kubernetes/dev/deployment.yaml | kubectl apply -f -'
+        sh 'kubectl apply -f ./Kubernetes/dev/service.yaml'
+
+      }
+
+    stage("Unit-testing"){
+        sh '#!/bin/bash'
+        sh 'pip3 install --user -r requirements.txt'
+        sh 'python3 test.py'
     }
-        
+
+    stage("TEST Deployment"){
+
+    def deployment = input(message:'Deploy to TEST ?',ok:'ok',parameters:[booleanParam(defaultValue:true,description:'',name:'Yes')])
+
+    if(deployment == true){
+
+    script {
+        env.DOCKER_BUILD_NUMBER=Jenkins.instance.getItem("autobuild").lastSuccessfulBuild.number
+    }
+
         sh 'envsubst < ./Kubernetes/test/deployment.yaml | kubectl apply -f -'
         sh 'kubectl apply -f ./Kubernetes/test/service.yaml'
-      } 
+      }
       else{
           echo "TEST Deployment Aborted!"
       }
     }
+
+
 }
+~
+

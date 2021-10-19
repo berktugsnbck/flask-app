@@ -1,0 +1,5 @@
+echo '##### Install requirements #####'
+pip install --user -r requirements.txt
+
+echo '##### test.py  #####'
+python test.py 

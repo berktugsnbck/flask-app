@@ -1,0 +1,25 @@
+#!/usr/bin/env groovy
+
+node {
+    stage("Git Clone"){
+    git credentialsId: 'GIT_HUB_CREDENTIALS',url:'https://github.com/berktugsnbck/flask-app.git'
+    }
+       
+    stage("TEST Deployment"){
+        
+    def deployment = input(message:'Deploy to TEST ?',ok:'ok',parameters:[booleanParam(defaultValue:true,description:'',name:'Yes')])
+          
+    if(deployment == true){
+          
+    script {
+        env.DOCKER_BUILD_NUMBER=Jenkins.instance.getItem("buildjob").lastSuccessfulBuild.number
+    }
+        
+        sh 'envsubst < ./Kubernetes/test/deployment.yaml | kubectl apply -f -'
+        sh 'kubectl apply -f ./Kubernetes/test/service.yaml'
+      } 
+      else{
+          echo "TEST Deployment Aborted!"
+      }
+    }
+}

@@ -16,7 +16,7 @@ class HelloWorld(Resource):
 		return json.dumps({"Message":"ok"})
 		
 
-api.add_resource(HelloWorld, '/fo')
+api.add_resource(HelloWorld, '/db')
 
 
 if __name__ == '__main__':

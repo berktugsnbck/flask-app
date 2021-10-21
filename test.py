@@ -33,4 +33,4 @@ def test_index_data(self):
 
 
 if __name__ == "__main__":
-    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output=html_report_dir))
+    unittest.main()

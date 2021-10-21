@@ -1,4 +1,4 @@
 Flask
 Flask-RESTful
-html-testRunner
+PyUnitReport
 nose

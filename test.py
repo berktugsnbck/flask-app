@@ -1,7 +1,7 @@
 try:
     from app import app
     import unittest
-    import HtmlTestRunner
+    from pyunitreport import HtmlTestRunner
     
     
 

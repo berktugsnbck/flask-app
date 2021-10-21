@@ -1,4 +1,5 @@
 try:
+    from io import StringIO
     from app import app
     import unittest
     from pyunitreport import HtmlTestRunner

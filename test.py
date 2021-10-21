@@ -1,9 +1,9 @@
 try:
     from app import app
     import unittest
-    import xmlrunner
-
-
+    import HtmlTestRunner
+    
+    
 
 except Exception as e:
     print("some modules are missing { } ".format(e))
@@ -33,4 +33,4 @@ def test_index_data(self):
 
 
 if __name__ == "__main__":
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output=html_report_dir))

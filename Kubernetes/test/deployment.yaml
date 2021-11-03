@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: flask-api
-        image: berktugsnbck/flask-app:v$DOCKER_BUILD_NUMBER
+        image: 20.81.250.94:8086/flask-app:v$DOCKER_BUILD_NUMBER
         ports:
           - containerPort: 5001
 
